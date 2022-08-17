@@ -2,13 +2,13 @@ import { MdClose } from 'react-icons/md'
 import PropTypes from 'prop-types';
 import { Overlay, Conteudo } from "./styles";
 
-function Modal({ titulo, children }) {
+function Modal({ titulo, children, visivel, fecharModal }) {
   return (
-    <Overlay>
+    <Overlay visivel={visivel}>
       <Conteudo>
         <header>
           {titulo}
-          <MdClose />
+          <MdClose onClick={fecharModal} />
         </header>
         {children}
       </Conteudo>

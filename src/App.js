@@ -8,6 +8,7 @@ function App() {
   // [0, atualizarValor]
   const [numero, atualizarNumero] = useState(0);
   const [historico, atualizarHistorico] = useState([]);
+  const [modalVisivel, atualizarModalVisivel] = useState(false);
 
   // O callback será executado sempre que o state numero for alterado.
   // O numero é declarado no array de dependências, segundo argumento do useEffect.
@@ -47,13 +48,20 @@ function App() {
   }
 
   function inserirFormula() {
-    const formula = prompt('Insira a formula');
-    console.log(formula);
+    atualizarModalVisivel(true);
+  }
+
+  function fecharModal() {
+    atualizarModalVisivel(false);
   }
 
   return (
     <Container>
-      <Modal titulo='Inserir fórmula'>
+      <Modal
+        titulo='Inserir fórmula'
+        visivel={modalVisivel}
+        fecharModal={fecharModal}
+      >
         <input type='text' placeholder='Ex.: x + 2 - (3 * x)' />
         <button>Calcular</button>
       </Modal>
