@@ -3,9 +3,17 @@ import PropTypes from 'prop-types';
 import { Overlay, Conteudo } from "./styles";
 
 function Modal({ titulo, children, visivel, fecharModal }) {
+
+  function pararPropagacao(event) {
+    event.stopPropagation();
+  }
+
   return (
-    <Overlay visivel={visivel}>
-      <Conteudo>
+    <Overlay
+      visivel={visivel}
+      onClick={fecharModal}
+    >
+      <Conteudo onClick={pararPropagacao}>
         <header>
           {titulo}
           <MdClose onClick={fecharModal} />
