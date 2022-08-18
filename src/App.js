@@ -9,6 +9,7 @@ function App() {
   const [numero, atualizarNumero] = useState(0);
   const [historico, atualizarHistorico] = useState([]);
   const [modalVisivel, atualizarModalVisivel] = useState(false);
+  const [formula, atualizarFormula] = useState('');
 
   // O callback será executado sempre que o state numero for alterado.
   // O numero é declarado no array de dependências, segundo argumento do useEffect.
@@ -20,6 +21,9 @@ function App() {
 
   // Criando a referência historicoRef
   const historicoRef = useRef();
+
+  // Criando a referêcia inputRef
+  const inputRef = useRef();
 
   // Atualizando a referência com useEffect e useRef.
   useEffect(() => {
@@ -55,6 +59,13 @@ function App() {
     atualizarModalVisivel(false);
   }
 
+  function calcularFormula() {
+    // const formula = inputRef.current.value;
+    const formulaSubstituida = formula.replaceAll('x', numero);
+    const resultado = eval(formulaSubstituida);
+    atualizarNumero(resultado);
+  }
+
   return (
     <Container>
       <Modal
@@ -62,8 +73,14 @@ function App() {
         visivel={modalVisivel}
         fecharModal={fecharModal}
       >
-        <input type='text' placeholder='Ex.: x + 2 - (3 * x)' />
-        <button>Calcular</button>
+        <input
+          type='text'
+          placeholder='Ex.: x + 2 - (3 * x)'
+          ref={inputRef}
+          deafultValue={formula}
+          onChange={(event) => atualizarFormula(event.target.value)}
+        />
+        <button onClick={calcularFormula}>Calcular</button>
       </Modal>
       <div>
         <h1>{numero.toFixed(2)}</h1>
